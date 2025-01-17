@@ -6,6 +6,8 @@ import {
   Typography,
   Box,
   CircularProgress,
+  Card,
+  CardContent,
 } from "@mui/material";
 
 const Form = () => {
@@ -28,7 +30,7 @@ const Form = () => {
 
     try {
       // Make a POST request to the backend
-      const res = await axios.post("http://localhost:4500/api/forms", formData);
+      const res = await axios.post("http://localhost:4501/api/forms", formData);
 
       // Handle success response
       setResponseMessage(`Form submitted successfully! ID: ${res.data.id}`);
@@ -42,81 +44,86 @@ const Form = () => {
   };
 
   return (
-    <>
-      <Box
-        sx={{
-          maxWidth: 400,
-          margin: "auto",
-          padding: 2,
-          backgroundColor: "White",
-          color: "black",
-        }}
-      >
-        <Typography variant="h4" align="center" gutterBottom>
-          Submit Scan Information
-        </Typography>
-
-        <form onSubmit={handleSubmit}>
-          <TextField
-            label="Name"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-
-          <TextField
-            label="Description"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            multiline
-            rows={4}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-          />
-
-          <TextField
-            label="Target"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            value={target}
-            onChange={(e) => setTarget(e.target.value)}
-            required
-          />
-
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            fullWidth
-            sx={{ marginTop: 2 }}
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <CircularProgress size={24} color="inherit" />
-            ) : (
-              "Submit"
-            )}
-          </Button>
-        </form>
-
-        {responseMessage && (
-          <Typography
-            variant="body1"
-            color={responseMessage.startsWith("Error") ? "error" : "success"}
-            align="center"
-            sx={{ marginTop: 2 }}
-          >
-            {responseMessage}
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+        backgroundColor: "#f7f7f7", // Background color for the page
+      }}
+    >
+      <Card sx={{ width: 400, padding: 3, boxShadow: 3, borderRadius: 3 }}>
+        <CardContent>
+          <Typography variant="h5" align="center" gutterBottom>
+            Submit Scan Information
           </Typography>
-        )}
-      </Box>
-    </>
+
+          <form onSubmit={handleSubmit}>
+            <TextField
+              label="Name"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              sx={{ marginBottom: 2 }}
+            />
+
+            <TextField
+              label="Description"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              multiline
+              rows={4}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required
+              sx={{ marginBottom: 2 }}
+            />
+
+            <TextField
+              label="Target"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              value={target}
+              onChange={(e) => setTarget(e.target.value)}
+              required
+              sx={{ marginBottom: 2 }}
+            />
+
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              fullWidth
+              sx={{ marginTop: 2, padding: "10px 0" }}
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <CircularProgress size={24} color="inherit" />
+              ) : (
+                "Submit"
+              )}
+            </Button>
+          </form>
+
+          {responseMessage && (
+            <Typography
+              variant="body1"
+              color={responseMessage.startsWith("Error") ? "error" : "success"}
+              align="center"
+              sx={{ marginTop: 2 }}
+            >
+              {responseMessage}
+            </Typography>
+          )}
+        </CardContent>
+      </Card>
+    </Box>
   );
 };
 
