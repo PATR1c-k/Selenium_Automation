@@ -37,7 +37,7 @@ namespace NessusSeleniumTesting
             string recordId = args[1];
 
             // Connect to MongoDB
-            var client = new MongoClient("mongodb+srv://pratik:test123@cluster0.am5xmqs.mongodb.net");
+            var client = new MongoClient("mongodb+srv://<MOngoURI>:<password>@cluster0.am5xmqs.mongodb.net");
             var database = client.GetDatabase("selenium_automation");
             var collection = database.GetCollection<BsonDocument>("formdatas");
 
